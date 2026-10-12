@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO карточек AG TECH</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16202b;--mute:#5d6b7a;--line:#e3e7ec;--acc:#2a62d6;--acc2:#14a37f;--warn:#c9821b;--bad:#c94a3b;--bar:#dfe6f3;--w2:#eef7f2}
+@media (prefers-color-scheme:dark){:root{--bg:#0f141a;--card:#18202a;--ink:#e8edf2;--mute:#9aa8b6;--line:#2a3542;--acc:#6f9bff;--acc2:#3fcf9f;--warn:#e6a54a;--bad:#ef7b6c;--bar:#26354a;--w2:#17261f}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 10px}.sub{color:var(--mute);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{display:block;font-size:24px;margin-top:4px}.kpi span{color:var(--mute);font-size:12px}.kpi .up{color:var(--acc2)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;color:var(--ink);padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+.seg button.on{background:var(--acc);color:#fff}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--mute);margin-top:14px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+th,td{white-space:nowrap;padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}
+th{background:var(--bg);color:var(--mute);font-weight:600;cursor:pointer;white-space:nowrap;position:sticky;top:0}
+td:first-child,th:first-child{text-align:left;white-space:normal}tr.w2 td{background:var(--w2)}
+.cov{display:flex;align-items:center;gap:6px;min-width:150px}.track{position:relative;flex:1;height:8px;background:var(--bar);border-radius:6px}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}.track .was{background:var(--mute);opacity:.45}.track .now{background:var(--acc2);height:8px}
+.pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;background:var(--bar);color:var(--mute);margin-left:6px}
+.pos{color:var(--acc2);font-weight:600}.neg{color:var(--bad)}.mute{color:var(--mute)}
+.list{display:none}
+.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.item.w2{background:var(--w2)}.item h3{font-size:15px;margin:0 0 6px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:13px;margin-top:8px}
+.grid2 span{color:var(--mute);display:block;font-size:11px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.hb{display:grid;grid-template-columns:minmax(110px,190px) 1fr 80px;gap:8px;align-items:center;font-size:13px;margin:6px 0}
+.hb .t{height:14px;background:var(--bar);border-radius:7px;overflow:hidden}.hb .t i{display:block;height:100%;background:var(--acc)}
+.hb .v{text-align:right;font-variant-numeric:tabular-nums}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px}summary{cursor:pointer;font-weight:600}
+details li{margin:6px 0;color:var(--mute);font-size:13px}
+@media (max-width:760px){.hb{grid-template-columns:1fr auto;gap:4px 8px;margin:10px 0}.hb .t{grid-column:1/-1;order:3}.tbl{display:none}.list{display:block}.kpi b{font-size:20px}}
+</style></head><body><div class="wrap">
+<h1>SEO карточек AG TECH — волны 1 и 2</h1>
+<div class="sub">Обновлено 12.10.2026 · Wildberries · охват поисковых запросов MPSTATS «было → стало» и прогноз эффекта</div>
+<div class="bar"><span class="sub">Сценарий прогноза:</span><div class="seg" id="sc"><button data-k="c">Консервативный</button><button data-k="b" class="on">Базовый</button></div>
+<span class="sub">Волна:</span><div class="seg" id="wv"><button data-w="0" class="on">Все</button><button data-w="1">Волна 1</button><button data-w="2">Волна 2</button></div></div>
+<div class="kpis" id="kpis"></div>
+<div class="note" id="caveat"></div>
+<h2>Где ждём основной прирост выручки</h2><div class="chart" id="top"></div>
+<h2>Все склейки</h2>
+<div class="tbl"><table><thead><tr id="hd"></tr></thead><tbody id="tb"></tbody></table></div>
+<div class="list" id="lst"></div>
+<h2>Первый факт (волна 1)</h2><div class="chart" id="fact"></div>
+<details><summary>Как считается прогноз</summary><ul>
+<li><b>Охват</b> — доля суммарной частотности запросов склейки, которые карточка содержит целиком (MPSTATS «Проверка карточки»). Это потенциальная видимость в поиске, не позиция.</li>
+<li><b>Рост показов</b> = (охват стало ÷ было − 1), не больше 200%, × доля реализации: консервативно 25%, базово 50% — новые запросы появляются в выдаче не сразу и не на первых местах.</li>
+<li><b>Заказы и выручка</b> = продажи склейки за 06.09–05.10.2026 (30 дней до начала работ, WB «Воронка продаж») × рост показов. Конверсия, цены, остатки и реклама считаются неизменными.</li>
+<li>Волна 1: «было» замерено 08.10 уже после первой версии текстов — реальный прирост волны 1 выше показанного. По антискотчу «стало» не замерено — без прогноза.</li>
+<li>Не учтены сезонность (автохимия растёт к зиме), нулевые остатки (обнуляют рост), действия конкурентов. Это ориентир, а не обещание.</li>
+<li>Проверка: позиции по ключевым запросам — 21–22.10, заказы — через 4 недели после заливки против той же базы.</li></ul></details>
+<div class="sub" style="margin-top:18px">Источники: MPSTATS (Saleflow), WB API «Воронка продаж», журнал работ. Подготовлено отделом продаж AG TECH.</div>
+</div>
+<script>
+const D={"rows": [{"w": 1, "n": "Антискотч", "c": 6, "d": "08.10", "was": 0.83, "now": null, "pot": null, "o": 3362, "s": 2191939, "f0": 128, "f1": 80, "note": "«было» — одна карточка 210 мл; «стало» не замерено"}, {"w": 1, "n": "Чернитель шин", "c": 7, "d": "08.10", "was": 0.83, "now": 0.92, "pot": 0.108433734939759, "o": 2756, "s": 1846353, "f0": 61, "f1": 67, "note": "аэрозоль 90→91, пена 76→92"}, {"w": 1, "n": "Очиститель карбюратора", "c": 6, "d": "08.10", "was": 0.84, "now": 0.86, "pot": 0.0238095238095237, "o": 585, "s": 386495, "f0": 16, "f1": 19, "note": "650 мл"}, {"w": 1, "n": "Очиститель кондиционера", "c": 7, "d": "08.10", "was": 0.83, "now": 0.84, "pot": 0.0120481927710843, "o": 504, "s": 213922, "f0": 10, "f1": 8, "note": "остаток — чужие запросы"}, {"w": 1, "n": "Полироль пластика", "c": 29, "d": "08.10", "was": 0.61, "now": 0.87, "pot": 0.426229508196721, "o": 888, "s": 522369, "f0": 89, "f1": 71, "note": "среднее: парфюм 79→87, матовая 80→88, пена 43→85, реставратор 43→87"}, {"w": 1, "n": "Очиститель тормозов", "c": 8, "d": "08.10", "was": 0.88, "now": 0.97, "pot": 0.102272727272727, "o": 416, "s": 336486, "f0": 26, "f1": 21, "note": "650/1000/20 л"}, {"w": 1, "n": "Жидкий ключ", "c": 9, "d": "09.10", "was": 0.55, "now": 0.89, "pot": 0.618181818181818, "o": 810, "s": 317263, "f0": 46, "f1": 66, "note": ""}, {"w": 1, "n": "Медная / керамическая / белая", "c": 6, "d": "09.10", "was": 0.71, "now": 0.93, "pot": 0.309859154929578, "o": 2529, "s": 1309783, "f0": 145, "f1": 131, "note": "медная 84→94, белая 90→94, керамика 39→90"}, {"w": 1, "n": "Очиститель битума", "c": 3, "d": "09.10", "was": 0.24, "now": 0.88, "pot": 2, "o": 701, "s": 405331, "f0": 20, "f1": 25, "note": ""}, {"w": 1, "n": "Силиконовая смазка", "c": 5, "d": "09.10", "was": 0.67, "now": 0.87, "pot": 0.298507462686567, "o": 3147, "s": 1538489, "f0": 162, "f1": 123, "note": ""}, {"w": 1, "n": "Сжатый воздух", "c": 5, "d": "09.10", "was": 0.55, "now": 0.93, "pot": 0.690909090909091, "o": 2506, "s": 1203895, "f0": 233, "f1": 252, "note": ""}, {"w": 1, "n": "Многоцелевая смазка AG-40", "c": 5, "d": "09.10", "was": 0.57, "now": 0.88, "pot": 0.543859649122807, "o": 1488, "s": 642664, "f0": 63, "f1": 29, "note": "1000 мл"}, {"w": 1, "n": "Освежитель воздуха", "c": 4, "d": "09.10", "was": 0.68, "now": 0.94, "pot": 0.38235294117647, "o": 224, "s": 99671, "f0": 25, "f1": 22, "note": ""}, {"w": 1, "n": "Преобразователь ржавчины и антикор", "c": 7, "d": "09.10", "was": 0.47, "now": 0.83, "pot": 0.765957446808511, "o": 73, "s": 32437, "f0": 3, "f1": 2, "note": "преобразователь 56→83, антикор 38→82"}, {"w": 1, "n": "Очиститель деталей", "c": 2, "d": "09.10", "was": 0.34, "now": 0.96, "pot": 1.82352941176471, "o": 63, "s": 32201, "f0": 8, "f1": 4, "note": ""}, {"w": 1, "n": "Тефлоновая смазка", "c": 1, "d": "09.10", "was": 0.5, "now": 0.98, "pot": 0.96, "o": 154, "s": 69878, "f0": 7, "f1": 0, "note": ""}, {"w": 1, "n": "Сухая химчистка", "c": 2, "d": "09.10", "was": 0.32, "now": 0.62, "pot": 0.9375, "o": 133, "s": 61540, "f0": 3, "f1": 5, "note": "лимит 2000 знаков"}, {"w": 2, "n": "Алюминиевая смазка", "c": 3, "d": "11.10", "was": 0.42, "now": 0.95, "pot": 1.26190476190476, "o": 338, "s": 165742, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Графитовая смазка", "c": 3, "d": "11.10", "was": 0.32, "now": 0.96, "pot": 2, "o": 135, "s": 55045, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Очиститель стёкол", "c": 1, "d": "11.10", "was": 0.04, "now": 0.85, "pot": 2, "o": 107, "s": 58893, "f0": null, "f1": null, "note": "авто + дом"}, {"w": 2, "n": "Очиститель контактов", "c": 2, "d": "11.10", "was": 0.8, "now": 0.97, "pot": 0.2125, "o": 148, "s": 40331, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Лак для клемм", "c": 1, "d": "11.10", "was": 0, "now": 0.93, "pot": 2, "o": 52, "s": 19207, "f0": null, "f1": null, "note": "было 0% — по своим запросам не индексировалась"}, {"w": 2, "n": "Литиевая смазка", "c": 3, "d": "11.10", "was": 0.44, "now": 0.94, "pot": 1.13636363636364, "o": 173, "s": 58990, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Очиститель дисков", "c": 1, "d": "11.10", "was": 0.22, "now": 0.98, "pot": 2, "o": 49, "s": 23062, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Раскоксовка двигателя", "c": 1, "d": "12.10", "was": 0.46, "now": 0.98, "pot": 1.1304347826087, "o": 20, "s": 14813, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Антизапотеватель", "c": 1, "d": "12.10", "was": 0.69, "now": 1, "pot": 0.449275362318841, "o": 26, "s": 11031, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Пенный очиститель двигателя", "c": 2, "d": "12.10", "was": 0.52, "now": 0.99, "pot": 0.903846153846154, "o": 53, "s": 15710, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Петельная (адгезионная) смазка", "c": 3, "d": "12.10", "was": 0.27, "now": 0.96, "pot": 2, "o": 19, "s": 9842, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Цепная смазка", "c": 2, "d": "12.10", "was": 0.35, "now": 0.99, "pot": 1.82857142857143, "o": 11, "s": 6328, "f0": null, "f1": null, "note": ""}, {"w": 2, "n": "Высокотемпературная смазка", "c": 2, "d": "12.10", "was": 0.26, "now": 0.93, "pot": 2, "o": 0, "s": 0, "f0": null, "f1": null, "note": "переписана под сухую графитовую; в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}, {"w": 2, "n": "Оружейное масло", "c": 2, "d": "12.10", "was": 0.17, "now": 0.89, "pot": 2, "o": 0, "s": 0, "f0": null, "f1": null, "note": "+ смена категории на «Смазки для оружия»; в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}, {"w": 2, "n": "Смазка для беговой дорожки", "c": 1, "d": "12.10", "was": 0.55, "now": 1, "pot": 0.818181818181818, "o": 0, "s": 0, "f0": null, "f1": null, "note": "только спорт-запросы; в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}, {"w": 2, "n": "Топливная система (4 карточки)", "c": 4, "d": "12.10", "was": 0.38, "now": 1, "pot": 1.63157894736842, "o": 0, "s": 0, "f0": null, "f1": null, "note": "склейка разделена; станционные промывки → «Очистители топливной системы»; в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}, {"w": 2, "n": "Быстрый старт", "c": 1, "d": "12.10", "was": 0.49, "now": 0.99, "pot": 1.02040816326531, "o": 0, "s": 0, "f0": null, "f1": null, "note": "в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}, {"w": 2, "n": "Подарочный набор", "c": 4, "d": "12.10", "was": 0.37, "now": 0.91, "pot": 1.45945945945946, "o": 1, "s": 4984, "f0": null, "f1": null, "note": "в базе ≤1 заказа (нет остатка или новинка) — прогноз в шт не строится, рост только в показах"}], "shop": {"o": 21481, "s": 11700493, "f0": 1146, "f1": 995}, "k": {"c": 0.25, "b": 0.5}, "cap": 2};let K='b',W=0,sortKey='ps',sortDir=-1;
+const f=n=>n==null||n===''?'—':Math.round(n).toLocaleString('ru-RU');
+const p=(n,s=true)=>n==null?'—':(s&&n>0?'+':'')+Math.round(n*100)+'%';
+const rub=n=>n==null?'—':(n>=1e6?(n/1e6).toFixed(2).replace('.',',')+' млн ₽':f(n)+' ₽');
+function calc(r){const k=D.k[K];const sh=r.pot==null?null:r.pot*k;const ok=r.o>1&&sh!=null;return{...r,sh,po:ok?Math.round(r.o*sh):null,ps:ok?Math.round(r.s*sh):null}}
+function rowsNow(){return D.rows.filter(r=>!W||r.w==W).map(calc)}
+function kpis(R){const o=R.reduce((a,r)=>a+r.o,0),s=R.reduce((a,r)=>a+r.s,0),po=R.reduce((a,r)=>a+(r.po||0),0),ps=R.reduce((a,r)=>a+(r.ps||0),0),c=R.reduce((a,r)=>a+r.c,0);
+ const sh=o?po/o:0;
+ document.getElementById('kpis').innerHTML=[
+ ['Склеек / карточек',R.length+' / '+c,''],['Прогноз показов',p(sh),'up'],['Прогноз заказов в месяц','+'+f(po)+' шт','up'],
+ ['Прогноз выручки в месяц','+'+rub(ps),'up'],['База: заказы за 30 дней',f(o)+' шт',''],['База: выручка за 30 дней',rub(s),'']]
+ .map(([a,b,c])=>`<div class="kpi"><span>${a}</span><b class="${c}">${b}</b></div>`).join('');
+ document.getElementById('caveat').innerHTML=`Прогноз — модель «${K=='b'?'базовый':'консервативный'}» (доля реализации ${Math.round(D.k[K]*100)}%), на месяц после индексации карточек WB (1–2 недели после заливки). Показы — средневзвешенно по заказам. Склейки без продаж в базе (нет остатка/новинки) дают рост только в показах.`}
+function drawTop(R){const T=R.filter(r=>r.ps).sort((a,b)=>b.ps-a.ps).slice(0,10),mx=Math.max(...T.map(r=>r.ps),1);
+ document.getElementById('top').innerHTML=T.map(r=>`<div class="hb"><div>${r.n}</div><div class="t"><i style="width:${r.ps/mx*100}%"></i></div><div class="v">+${rub(r.ps)}</div></div>`).join('')||'<div class="sub">Нет данных</div>'}
+const COLS=[['n','Склейка'],['c','Карт.'],['d','Залито'],['cov','Охват было → стало'],['sh','Показы'],['o','Заказы база, шт'],['po','+шт/мес'],['ps','+₽/мес']];
+function cov(r){if(r.was==null)return'—';const w=r.was*100,n=r.now==null?null:r.now*100;
+ return`<div class="cov"><div class="track"><i class="was" style="width:${w}%"></i>${n==null?'':`<i class="now" style="width:${n}%"></i><i class="was" style="width:${w}%;opacity:.9;background:var(--mute)"></i>`}</div><span>${Math.round(w)}→${n==null?'?':Math.round(n)}%</span></div>`}
+function table(R){const v=r=>sortKey=='cov'?(r.now??-1):(r[sortKey]??-1e12);R.sort((a,b)=>typeof v(a)=='string'?v(a).localeCompare(v(b))*sortDir:(v(a)-v(b))*sortDir);
+ document.getElementById('hd').innerHTML=COLS.map(([k,t])=>`<th data-k="${k}">${t}${sortKey==k?(sortDir>0?' ▲':' ▼'):''}</th>`).join('');
+ document.getElementById('tb').innerHTML=R.map(r=>`<tr class="${r.w==2?'w2':''}"><td>${r.n}<span class="pill">В${r.w}</span>${r.note?`<div class="mute" style="font-size:11px">${r.note}</div>`:''}</td><td>${r.c}</td><td>${r.d}</td><td>${cov(r)}</td><td class="pos">${p(r.sh)}</td><td>${f(r.o)}</td><td class="pos">${r.po==null?'—':'+'+f(r.po)}</td><td class="pos">${r.ps==null?'—':'+'+rub(r.ps)}</td></tr>`).join('');
+ document.querySelectorAll('#hd th').forEach(th=>th.onclick=()=>{const k=th.dataset.k;sortDir=sortKey==k?-sortDir:-1;sortKey=k;render()});
+ document.getElementById('lst').innerHTML=R.map(r=>`<div class="item ${r.w==2?'w2':''}"><h3>${r.n}<span class="pill">В${r.w} · ${r.c} карт. · ${r.d}</span></h3>${cov(r)}
+ <div class="grid2"><div><span>Показы</span><b class="pos">${p(r.sh)}</b></div><div><span>Заказы база</span>${f(r.o)} шт</div><div><span>+ заказов в месяц</span><b class="pos">${r.po==null?'—':'+'+f(r.po)+' шт'}</b></div><div><span>+ выручки в месяц</span><b class="pos">${r.ps==null?'—':'+'+rub(r.ps)}</b></div></div>${r.note?`<div class="mute" style="font-size:12px;margin-top:6px">${r.note}</div>`:''}</div>`).join('')}
+function fact(){const R=D.rows.filter(r=>r.w==1&&r.f0!=null),a=R.reduce((x,r)=>x+r.f0,0),b=R.reduce((x,r)=>x+r.f1,0),S=D.shop;
+ const line=(t,x,y)=>`<div class="hb"><div>${t}</div><div class="sub">${f(x)} → ${f(y)} заказов</div><div class="v ${y>=x?'pos':'neg'}">${p(y/x-1)}</div></div>`;
+ document.getElementById('fact').innerHTML=line('Склейки волны 1',a,b)+line('Весь магазин',S.f0,S.f1)+`<div class="sub" style="margin-top:8px">Выходные 10–11.10 против 03–04.10. Всего 2 дня после заливки, индексация ещё идёт — это не сигнал, а точка отсчёта.</div>`}
+function render(){const R=rowsNow();kpis(R);drawTop(R);table(R);fact()}
+document.querySelectorAll('#sc button').forEach(b=>b.onclick=()=>{K=b.dataset.k;document.querySelectorAll('#sc button').forEach(x=>x.classList.toggle('on',x==b));render()});
+document.querySelectorAll('#wv button').forEach(b=>b.onclick=()=>{W=+b.dataset.w;document.querySelectorAll('#wv button').forEach(x=>x.classList.toggle('on',x==b));render()});
+render();
+</script></body></html>
